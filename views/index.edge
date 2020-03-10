@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Sen&display=swap"
+            rel="stylesheet"
+        />
+        <title>Tock Tock Midnight</title>
+        <meta
+            name="description"
+            content="Wake your Heroku application so it doesn't sleep after 30 minutes."
+        />
+        <style>
+            * {
+                font-family: 'Sen', sans-serif !important;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-100">
+        <div class="h-screen w-full flex justify-center">
+            <div class="max-w-5xl flex flex-col items-center mt-32">
+                <img
+                    class="w-32 h-32"
+                    src="https://user-images.githubusercontent.com/19477966/76357701-74e8cc00-6318-11ea-9992-ad95c3e5d651.png"
+                    alt=""
+                />
+
+                <h1 class="text-center mt-12 text-5xl">
+                    <span class="text-gray-900 font-bold">
+                        Tock Tock
+                    </span>
+                    <span class="text-gray-700"
+                        >pings an endpoint for you every day at midnight.</span
+                    >
+                </h1>
+
+                <input
+                    id="endpoint"
+                    placeholder="https://deployingnodejs.com"
+                    class="w-full px-5 py-4 focus:outline-none mt-8 mb-5 tracking-widest text-gray-800"
+                    type="text"
+                />
+
+                <span id="error" class="hidden text-red-500 mb-4"> </span>
+
+                <span id="success" class="hidden text-green-500 mb-4"> </span>
+
+                <button
+                    onclick="addEndpoint()"
+                    class="w-1/3 bg-gray-700 rounded-sm text-white py-5"
+                >
+                    Tock Tock me !
+                </button>
+            </div>
+        </div>
+
+        <script>
+            const toggleItem = id => {
+                const item = document.getElementById(id)
+
+                item.classList.toggle('hidden')
+                item.classList.toggle('inline-block')
+
+                return item
+            }
+
+            const addEndpoint = () => {
+                fetch('/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        endpoint: document.getElementById('endpoint').value
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.error) {
+                            const error = toggleItem('error')
+
+                            error.innerHTML = response.error
+
+                            setTimeout(() => {
+                                toggleItem('error')
+                            }, 2000)
+                        } else {
+                            const success = toggleItem('success')
+
+                            success.innerHTML =
+                                'Yaas ! Endpoint added successfully !'
+
+                            setTimeout(() => {
+                                toggleItem('success')
+                            }, 2000)
+                        }
+
+                        document.getElementById('endpoint').value = ''
+                    })
+            }
+        </script>
+    </body>
+</html>

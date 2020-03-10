@@ -1,0 +1,26 @@
+{
+  "name": "tock-tock-midnight",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "consola": "^2.11.3",
+    "edge.js": "^1.1.4",
+    "express": "^4.17.1",
+    "express-edge": "^2.0.2",
+    "redis": "^3.0.2",
+    "redis-commands": "^1.5.0",
+    "then-redis": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "prettier": "prettier --write './**/*.{js,edge}'"
+  }
+}
