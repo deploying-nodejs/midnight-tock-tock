@@ -1,9 +1,10 @@
+require('dotenv').config()
 const Axios = require('axios')
 const Express = require('express')
 const Consola = require('consola')
 const BodyParser = require('body-parser')
-const db = require('then-redis').createClient()
 const { config, engine } = require('express-edge')
+const db = require('then-redis').createClient(process.env.REDIS_URL)
 
 config({ cache: process.env.NODE_ENV === 'production' })
 
