@@ -41,5 +41,5 @@ app.post('/', (req, res) => {
 app.get('*', (_, res) => res.redirect('/'))
 
 app.listen(port, () => {
-    Consola.success('Heroku tock tock running on port', port)
+    Consola.success('Midnight tick tock running on port', port)
 })
